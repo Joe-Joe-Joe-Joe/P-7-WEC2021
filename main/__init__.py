@@ -56,13 +56,6 @@ char_key_map = {
 }
 cap_time = 2
 
-part_1 = ["Test1.txt",
-          "Test2.txt",
-          "Test3.txt",
-          "Test4.txt"]
-
-part_2 = ["Part2.txt"]
-
 
 def remap_key(broken_key, new_key):
     global char_key_map
@@ -105,34 +98,3 @@ def read_words_2(infile):
         words_lines = fin.readlines()
         words_lines = [word.strip() for word in words_lines]
     return time_words(words_lines)
-
-
-for f in part_1:
-    print(f)
-    type_times = read_words_1(f)
-    min_time = 1000
-    min_time_ind = []
-    for i in range(len(type_times)):
-        if type_times[i][0] < min_time:
-            min_time_ind = [i]
-            min_time = type_times[i][0]
-        elif type_times[i][0] == min_time:
-            min_time_ind.append(i)
-    for index in min_time_ind:
-        print(type_times[index][1], type_times[index][0])
-    print()
-
-for f in part_2:
-    print(f)
-    type_times = read_words_2(f)
-    min_time = 1000
-    min_time_ind = []
-    for i in range(len(type_times)):
-        if type_times[i][0] < min_time:
-            min_time_ind = [i]
-            min_time = type_times[i][0]
-        elif type_times[i][0] == min_time:
-            min_time_ind.append(i)
-    for index in min_time_ind:
-        print(type_times[index][1], type_times[index][0])
-    print()
