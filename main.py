@@ -1,4 +1,3 @@
-
 button_times = {
     "a": 0.25,
     "b": 0.5,
@@ -25,9 +24,7 @@ button_times = {
     "w": 0.25,
     "x": 0.5,
     "y": 0.75,
-    "z": 1,
-    "*": 0.25,
-    "#": 0.25
+    "z": 1
 }
 char_key_map = {
     "a": "2",
@@ -55,24 +52,28 @@ char_key_map = {
     "w": "9",
     "x": "9",
     "y": "9",
-    "z": "9",
-    "*": "*",
-    "#": "#"
+    "z": "9"
 }
 cap_time = 2
 
-files_in = ["Test1.txt",
-            "Test2.txt",
-            "Test3.txt",
-            "Test4.txt"]
+part_1 = ["Test1.txt",
+          "Test2.txt",
+          "Test3.txt",
+          "Test4.txt"]
+
+part_2 = ["Part2.txt"]
 
 
-def time_words(infile):
+def remap_key(broken_key, new_key):
+    global char_key_map
+    for ch in char_key_map.keys():
+        if char_key_map[ch] == broken_key:
+            char_key_map[ch] = new_key
+
+
+def time_words(wl):
     times = []
-    with open(infile, 'r') as f:
-        words_lines = f.readlines()
-        words_lines = [word.strip() for word in words_lines]
-    for word in words_lines:
+    for word in wl:
         time_to_type = -0.25
         last_char = None
         for ch in word:
@@ -90,9 +91,25 @@ def time_words(infile):
     return times
 
 
-for f in files_in:
+def read_words_1(infile):
+    with open(infile, 'r') as fin:
+        words_lines = fin.readlines()
+        words_lines = [word.strip() for word in words_lines]
+    return time_words(words_lines)
+
+
+def read_words_2(infile):
+    with open(infile, 'r') as fin:
+        broken_key = fin.readline()
+        remap_key(broken_key, "#")
+        words_lines = fin.readlines()
+        words_lines = [word.strip() for word in words_lines]
+    return time_words(words_lines)
+
+
+for f in part_1:
     print(f)
-    type_times = time_words(f)
+    type_times = read_words_1(f)
     min_time = 1000
     min_time_ind = []
     for i in range(len(type_times)):
@@ -105,5 +122,17 @@ for f in files_in:
         print(type_times[index][1], type_times[index][0])
     print()
 
-
-
+for f in part_2:
+    print(f)
+    type_times = read_words_2(f)
+    min_time = 1000
+    min_time_ind = []
+    for i in range(len(type_times)):
+        if type_times[i][0] < min_time:
+            min_time_ind = [i]
+            min_time = type_times[i][0]
+        elif type_times[i][0] == min_time:
+            min_time_ind.append(i)
+    for index in min_time_ind:
+        print(type_times[index][1], type_times[index][0])
+    print()
