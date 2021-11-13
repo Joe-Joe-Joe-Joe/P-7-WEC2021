@@ -67,9 +67,7 @@ def remap_key(broken_key, new_key):
 def time_words(wl):
     times = []
     for word in wl:
-        time_to_type = 0
-        if len(wl) > 1:
-            time_to_type = -0.25
+        time_to_type = -0.25
         last_char = None
         for ch in word:
             if 97 <= ord(ch) <= 122 or ord(ch) == 35 or ord(ch) == 42:
